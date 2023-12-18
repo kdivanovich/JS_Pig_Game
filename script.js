@@ -14,14 +14,25 @@ const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
-score0Elem.textContent = 0;
-score1Elem.textContent = 0;
-diceElem.classList.add('hidden');
+let scores, currentScore, activePlayer, playing; 
 
-const scores = [0, 0];  // scores for player 1 and 2, access via scores[0/1]
-let currentScore = 0;
-let activePlayer = 0;
-let playing = true;
+const initGame = function() {
+    scores = [0, 0];  // scores for player 1 and 2, access via scores[0/1]
+    currentScore = 0;
+    activePlayer = 0;
+    playing = true;
+
+    score0Elem.textContent = 0;
+    score1Elem.textContent = 0;
+    curr0Elem.textContent = 0;
+    curr1Elem.textContent = 0;
+
+    diceElem.classList.add('hidden');    
+    player0El.classList.remove('player--winner');
+    player0El.classList.remove('player--winner');
+    player0El.classList.add('player--active');
+    player0El.classList.remove('player--active');  
+}
 
 const switchPlayer = function() {
     document.getElementById(`current--${activePlayer}`).textContent = 0;
@@ -31,6 +42,7 @@ const switchPlayer = function() {
     player1El.classList.toggle('player--active');
 }
 
+initGame();
 
 // Rolling the die funcionality
 btnRoll.addEventListener('click', function() {
@@ -53,7 +65,7 @@ btnRoll.addEventListener('click', function() {
             document.getElementById(`current--${activePlayer}`).textContent = currentScore;
         } else {
             // Player switch
-            switchPlayer();
+          switchPlayer();
         }    
     }    
 });
@@ -65,7 +77,7 @@ btnHold.addEventListener('click', function() {
         document.getElementById(`score--${activePlayer}`).textContent = scores[activePlayer];
     
         // 2. Check if score >= 100 -> finish game
-        if (scores[activePlayer] >= 20) {            
+        if (scores[activePlayer] >= 50) {            
             diceElem.classList.add('hidden');
             playing = false;
             document.querySelector(`.player--${activePlayer}`).classList.add('player--winner');  
@@ -76,3 +88,7 @@ btnHold.addEventListener('click', function() {
         }
     }
 });
+
+btnNew.addEventListener('click', function() {
+    initGame();
+})
