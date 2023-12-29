@@ -29,10 +29,10 @@ const initGame = function() {
 
     diceElem.classList.add('hidden');    
     player0El.classList.remove('player--winner');
-    player0El.classList.remove('player--winner');
+    player1El.classList.remove('player--winner');
     player0El.classList.add('player--active');
-    player0El.classList.remove('player--active');  
-}
+    player1El.classList.remove('player--active');  
+};
 
 const switchPlayer = function() {
     document.getElementById(`current--${activePlayer}`).textContent = 0;
